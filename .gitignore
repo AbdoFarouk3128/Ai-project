@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Data and Models (Very important for AI projects to avoid pushing large files)
+datasets/
+models/
+*.h5
+*.pkl
+*.pt
+*.pth
+
+# Jupyter Notebook settings
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
