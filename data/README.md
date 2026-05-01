@@ -57,8 +57,8 @@ This project contains the preprocessing pipeline for heart disease classificatio
 ## 📁 4. Final Output
 *   **Data Splitting**: Ensured strict separation between Train and Test sets.
 *   **Cleaned Files** (Click to open):
-    *   [Cleaned_Train_Data.csv](./Cleaned_Train_Data.csv)
-    *   [Cleaned_Test_Data.csv](./Cleaned_Test_Data.csv)
+    *   [Cleaned_Train_Data.csv](./data/Cleaned_Train_Data.csv)
+    *   [Cleaned_Test_Data.csv](./data/Cleaned_Test_Data.csv)
 
 ---
-> **Note for the Team**: Use the cleaned CSV files directly for model training. The preprocessing logic can be found in [Preprocessing.py](./Preprocessing.py).
+> **Note for the Team**: Use the cleaned CSV files directly for model training. The preprocessing logic can be found in [Preprocessing.py](./data/Preprocessing.py).
