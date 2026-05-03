@@ -5,16 +5,10 @@ __pycache__/
 
 # Virtual environments
 venv/
+.venv/
 env/
 .env
 
-# Data and Models (Very important for AI projects to avoid pushing large files)
-datasets/
-models/
-*.h5
-*.pkl
-*.pt
-*.pth
 
 # Jupyter Notebook settings
 .ipynb_checkpoints/
