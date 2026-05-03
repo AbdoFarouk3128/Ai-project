@@ -1,40 +1,35 @@
 # 🩺 Heart Disease Prediction - Data Preprocessing Report
 
-This project contains the preprocessing pipeline for heart disease classification. The goal was to clean the raw data and prepare it for machine learning models while maintaining medical data integrity.
+This project contains an advanced preprocessing pipeline designed to clean, balance, and encode heart disease data while strictly maintaining **Medical Data Integrity**.
 
 ---
 
-## 🛠️ 1. Data Cleaning
-*   **Removed ID**: Deleted the `id` column as it is a unique identifier and does not contribute to predictive power.
-*   **Handling Missing Values**:
-    *   **Numerical (`Age`, `BP`, `Cholesterol`, `Max HR`, `ST depression`)**: Imputed missing values using the **Median** to avoid the influence of extreme values.
-    *   **Categorical (`Gender`, `work_type`, `smoking_status`, `Thallium`)**: Imputed missing values using the **Mode** (most frequent value).
+## 🛠️ 1. Data Cleaning & Imputation
+*   **ID Removal**: The `id` column was dropped as it serves no predictive purpose.
+*   **Numerical Imputation**: Used **Median** for `Age`, `BP`, `Cholesterol`, `Max HR`, and `ST depression` to stay robust against outliers.
+*   **Categorical Imputation**: Used **Mode** (Most Frequent) for all categorical and ordinal features to maintain logical consistency[cite: 3].
 
 ## 📊 2. Outlier Management
-*   **IQR Method**: Calculated the Interquartile Range (IQR) for continuous variables (`Blood Pressure`, `Cholesterol`, etc.).
-*   **Clipping**: Extreme outliers were clipped to the lower and upper bounds to preserve data volume while reducing noise.
+*   **IQR Method**: Identified outliers using the Interquartile Range ($1.5 \times IQR$)[cite: 3].
+*   **Feature Clipping**: Instead of removing rows, extreme values were **clipped** to the calculated upper and lower bounds. This preserves the sample size (224 rows) while neutralizing noise[cite: 3].
 
-## 🔄 3. Feature Transformation & Scaling
-*   **Target Encoding**: Converted the target variable `Heart Disease` into `0` (No) and `1` (Yes).
-*   **Hybrid Categorical Encoding**:
-    *   **Label Encoding**: Applied to ordinal features (`Chest pain type`, `EKG results`, `Slope of ST`, `Thallium`) to maintain their logical medical rank.
-    *   **One-Hot Encoding**: Transformed nominal features (`Gender`, `work_type`, `smoking_status`) into binary columns for model stability.
-*   **Standard Scaling**: Applied `StandardScaler` to numerical columns after encoding to ensure all features are on the same scale.
+## ⚖️ 3. Advanced Balancing (SMOTENC)
+*   **Class Imbalance**: Addressed the minority class by oversampling from **224 to 248 samples**[cite: 3].
+*   **SMOTENC vs SMOTE**: We utilized **SMOTENC** (Synthetic Minority Over-sampling Technique for Nominal and Continuous). This ensures that categorical features (like `Chest pain type`) remain as discrete categories rather than being averaged into nonsensical decimals[cite: 3].
+*   **Integer Conversion**: Post-balancing, we applied **Rounding and Integer Casting** to `Age`, `BP`, `Cholesterol`, and `Max HR`. This ensures a realistic medical dataset (e.g., Age = 50 instead of 50.34).
 
-## ⚖️ 4. Data Balancing (SMOTE) & Integrity
-*   **Class Imbalance**: The original dataset (224 rows) was imbalanced, which could bias the model toward "Healthy" predictions.
-*   **SMOTE Technique**: Applied **Synthetic Minority Over-sampling Technique** to the training set, increasing the sample size to **248 rows** to achieve a 50/50 balance.
-*   **Data Integrity**: After the SMOTE process, the resulting **NumPy arrays** were explicitly converted back into **Pandas DataFrames** to retain feature names and structure.
+## 🔄 4. Feature Encoding & Engineering
+*   **Target Encoding**: Converted `Heart Disease` labels into `0` and `1` using `LabelEncoder`[cite: 3].
+*   **Ordinal Management**: Features like `Chest pain type`, `EKG results`, and `Slope of ST` were kept as **Integers**. This allows the model to leverage the natural medical ranking (Order) of these features[cite: 3].
+*   **One-Hot Encoding**: Transformed nominal features (`Gender`, `work_type`, `smoking_status`) into binary vectors to prevent the model from assuming an incorrect mathematical relationship between them[cite: 3].
 
 ## 🛡️ 5. Data Leakage Prevention
-*   **Strict Separation**: Maintained a clear boundary between training and testing data to ensure unbiased evaluation.
-*   **Fit vs. Transform**: We strictly performed `.fit()` only on the training data. The testing data was processed using `.transform()` only, utilizing parameters (means, medians, and scales) learned exclusively from the training set.
-*   **Consistent Bounds**: Outlier clipping bounds were calculated from the training set and applied to the test set to maintain a consistent feature space.
+*   **Strict Separation**: All preprocessing parameters (Medians, Bounds, and Encoders) were **fitted on Training data only**[cite: 3].
+*   **Test Alignment**: The test set was transformed using the training parameters and then **reindexed** to match the training feature space (22 columns) exactly, ensuring zero errors during model inference[cite: 3].
 
 ## 📁 6. Final Output
-*   **Cleaned Files**:
-    *   [`Modified_Cleaned_Train_Data.csv`](./Modified_Cleaned_Train_Data.csv): Balanced, scaled, and ready for model training.
-    *   [`Modified_Cleaned_Test_Data.csv`](./Modified_Cleaned_Test_Data.csv): Fully preprocessed for final evaluation.
+*   **[`Modified_Cleaned_Train_Data.csv`](./Cleaned_Train_Data.csv)**: Balanced, integer-aligned, and ready for model training[cite: 3].
+*   **[`Modified_Cleaned_Test_Data.csv`](./Cleaned_Test_Data.csv)**: Preprocessed test set aligned with the training schema[cite: 3].
 
 ---
-> **Note**: The full preprocessing logic is implemented in [`Preprocessing.py`](./Preprocessing.py). Use the modified CSV files for training the Classification models.
+> **Developer Note**: The full preprocessing logic is implemented in [`ModPreprocessing.py`](./ModPreprocessing.py). The resulting data is optimized for high-performance classifiers such as Random Forest and XGBoost.
