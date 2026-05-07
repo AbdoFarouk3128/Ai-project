@@ -43,7 +43,7 @@ y_train_pred = best.predict(X_train)
 
 
 
-print("--- RANDOM FOREST ---")
+print("--- KNN Model ---")
 print(f"Best Hyperparameters: {grid.best_params_}")
 print(f"Accuracy:  {accuracy_score(y_test, y_pred):.4f}")
 print(f"Accuracy Train:    {accuracy_score(y_train, y_train_pred):.4f}")
