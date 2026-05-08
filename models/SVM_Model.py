@@ -24,7 +24,7 @@ X_test_scaled = scaler.transform(X_test)
 model = SVC(random_state=42)
 param_grid = {'C': [0.1, 1, 10, 100],'kernel': ['linear', 'rbf']}
 
-grid = GridSearchCV(model, param_grid, cv=5, scoring='accuracy')
+grid = GridSearchCV(model, param_grid, cv=5, scoring='recall')
 grid.fit(X_train_scaled, y_train)
 
 best = grid.best_estimator_
