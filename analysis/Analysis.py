@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
-x= pd.read_csv('/Users/ziadhossam/Library/Containers/net.whatsapp.WhatsApp/Data/tmp/documents/DD26D5AD-CEFF-4B36-A649-0083C8A474CB/Cleaned_Train_Data.csv')
+x= pd.read_csv('data/Cleaned_Train_Data.csv')
 
 
 target = "Heart Disease"
@@ -14,7 +14,7 @@ corr.drop(target).plot(kind='bar')
 plt.title("Correlation with Heart Disease")
 plt.xticks(rotation=90)
 plt.tight_layout()
-plt.show()
+plt.savefig("analysis/Correlation.png")
 
 
 top_features = corr.drop(target).abs().sort_values(ascending=False).head(5).index
@@ -38,7 +38,7 @@ g.set_titles("Exercise Angina: {col_name}")
 plt.subplots_adjust(top=0.85)
 g.fig.suptitle('Chest Pain Type vs Heart Disease')
 
-plt.show()
+plt.savefig("analysis/Chest_Pain_Type_vs_Heart_Disease.png")
 
 
 
@@ -74,5 +74,5 @@ plt.contour(xx, yy, Z)
 plt.xlabel("Age")
 plt.ylabel("BP")
 plt.title("Decision Boundary (Age vs BP)")
-plt.show()
+plt.savefig("analysis/Decision_Boundary.png")
 

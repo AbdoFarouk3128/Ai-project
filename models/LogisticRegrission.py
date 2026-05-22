@@ -5,8 +5,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 
 # Load Data
-train = pd.read_csv('data/Cleaned Train Data.csv')
-test = pd.read_csv('data/Cleaned Test Data.csv')
+train = pd.read_csv('data/Cleaned_Train_Data.csv')
+test = pd.read_csv('data/Cleaned_Test_Data.csv')
 
 # Remove features identified as useless 
 useless = ['Gender_Female', 'work_type_Govt_job', 'work_type_Private', 

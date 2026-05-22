@@ -29,14 +29,20 @@ model = XGBClassifier(
     reg_lambda=1.0
 )
 
+# param_grid = {
+#     'learning_rate': [0.01, 0.05],
+#     'n_estimators': [100, 150],
+#     'max_depth': [3, 4],
+#     'subsample': [0.7, 0.8],
+#     'colsample_bytree': [0.7, 0.8],
+# }
 param_grid = {
-    'learning_rate': [0.01, 0.05],
-    'n_estimators': [100, 150],
-    'max_depth': [3, 4],
-    'subsample': [0.7, 0.8],
-    'colsample_bytree': [0.7, 0.8],
+    'learning_rate': [0.05],
+    'n_estimators': [100],
+    'max_depth': [3],
+    'subsample': [0.8],
+    'colsample_bytree': [0.7],
 }
-
 grid = GridSearchCV(model, param_grid, cv=5, scoring='recall')
 
 grid.fit(X_train, y_train)
